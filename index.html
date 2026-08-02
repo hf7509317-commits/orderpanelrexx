@@ -9,6 +9,10 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <!-- Google Fonts -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    
+    <!-- ===== IMPORT FILE DEVELOPER PRODUCTS ===== -->
+    <script src="developer-products.js"></script>
+    
     <style>
         * {
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -512,6 +516,20 @@
             border-radius: 50%;
             object-fit: cover;
         }
+
+        /* Product Category Badge */
+        .product-category-badge {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 12px;
+            font-size: 9px;
+            font-weight: 600;
+            margin-top: 4px;
+        }
+        .category-starter { background: #dbeafe; color: #1e40af; }
+        .category-business { background: #d1fae5; color: #065f46; }
+        .category-premium { background: #fef3c7; color: #92400e; }
+        .category-umum { background: #f3e8ff; color: #6d28d9; }
     </style>
 </head>
 <body>
@@ -585,7 +603,7 @@
         <div class="flex justify-between items-end mb-6">
             <div>
                 <h2 class="section-title">Pilih <span class="gradient-text">Paket Panel</span></h2>
-                <p class="section-subtitle mt-1">Spesifikasi mumpuni untuk performa maksimal</p>
+                <p class="section-subtitle mt-1">15 Paket tersedia dengan spesifikasi mumpuni</p>
             </div>
         </div>
         <div id="productGrid" class="product-grid-3col"></div>
@@ -686,45 +704,128 @@
         </div>
     </div>
 
-    <!-- DEVELOPER MODAL - HANYA KELOLA PRODUK -->
+    <!-- DEVELOPER MODAL -->
     <div id="devModal" class="fixed inset-0 bg-black/60 modal-overlay hidden items-center justify-center p-4 z-50">
-        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-lg w-full max-h-[90vh] overflow-y-auto">
+        <div class="bg-white border border-slate-200 rounded-2xl p-6 max-w-2xl w-full max-h-[90vh] overflow-y-auto">
             <div class="flex justify-between items-center border-b border-slate-200 pb-3">
-                <h3 class="text-lg font-bold text-slate-900">⚙️ Kelola Produk</h3>
+                <h3 class="text-lg font-bold text-slate-900">⚙️ Developer Panel</h3>
                 <button id="closeDev" class="text-slate-400 hover:text-slate-900 text-xl">✕</button>
             </div>
-            <div class="mt-4 space-y-4 text-sm">
-                <!-- Products -->
+            
+            <!-- Tab Navigation -->
+            <div class="dev-tab">
+                <button class="active" data-tab="tab-products"><i class="fas fa-box mr-1"></i> Produk</button>
+                <button data-tab="tab-settings"><i class="fas fa-cog mr-1"></i> Pengaturan</button>
+            </div>
+
+            <!-- Tab Products -->
+            <div id="tab-products" class="dev-panel active">
                 <div class="settings-section">
                     <p class="font-bold text-blue-600">📦 KELOLA PRODUK</p>
-                    <p class="text-slate-400 text-xs">Spesifikasi: RAM (GB) | DISK (GB) | CPU (%)</p>
+                    <p class="text-slate-400 text-xs">15 produk dari developer-products.js - Spesifikasi: RAM (GB) | DISK (GB) | CPU (%)</p>
                     <div class="border-b border-slate-200 pb-3 mt-2">
                         <p class="text-slate-700 font-semibold">Tambah Produk:</p>
                         <div class="grid grid-cols-2 gap-2 mt-1">
-                            <input type="text" id="new-prod-name" placeholder="Nama Produk" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="Paket 2">
-                            <input type="text" id="new-prod-price" placeholder="Harga" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="Rp 5.000">
+                            <input type="text" id="new-prod-name" placeholder="Nama Produk" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                            <input type="text" id="new-prod-price" placeholder="Harga" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
                         </div>
                         <div class="grid grid-cols-3 gap-2 mt-1">
-                            <input type="text" id="new-prod-ram" placeholder="RAM (GB)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="7">
-                            <input type="text" id="new-prod-disk" placeholder="DISK (GB)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="45">
-                            <input type="text" id="new-prod-cpu" placeholder="CPU (%)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="450">
+                            <input type="text" id="new-prod-ram" placeholder="RAM (GB)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                            <input type="text" id="new-prod-disk" placeholder="DISK (GB)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                            <input type="text" id="new-prod-cpu" placeholder="CPU (%)" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
                         </div>
-                        <div class="mt-1">
-                            <input type="text" id="new-prod-desc" placeholder="Deskripsi" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900" value="Cocok untuk bot aktif">
+                        <div class="grid grid-cols-2 gap-2 mt-1">
+                            <input type="text" id="new-prod-desc" placeholder="Deskripsi" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                            <select id="new-prod-category" class="bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                                <option value="Starter">Starter</option>
+                                <option value="Business">Business</option>
+                                <option value="Premium">Premium</option>
+                                <option value="Umum">Umum</option>
+                            </select>
                         </div>
                         <button id="addProductBtn" class="w-full bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 rounded-lg mt-2">+ Tambah Produk</button>
                     </div>
                     <div class="mt-2">
-                        <p class="text-slate-700 font-semibold mb-2">Daftar Produk:</p>
-                        <div id="devProductList" class="space-y-2"></div>
+                        <p class="text-slate-700 font-semibold mb-2">Daftar Produk (<span id="productCount">0</span>):</p>
+                        <div id="devProductList" class="space-y-2 max-h-48 overflow-y-auto"></div>
                     </div>
-                    <button id="saveProductsBtn" class="btn-save-individual mt-2">💾 Simpan</button>
-                </div>
-
-                <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg">
-                    <p class="text-blue-700 text-xs">💡 <b>Alur Order:</b> Pelanggan pilih produk → isi username → upload bukti → chat developer dengan pesan otomatis.</p>
+                    <button id="saveProductsBtn" class="btn-save-individual mt-2">💾 Simpan Produk</button>
                 </div>
             </div>
+
+            <!-- Tab Settings -->
+            <div id="tab-settings" class="dev-panel">
+                <div class="settings-section">
+                    <p class="font-bold text-purple-600">⚙️ PENGATURAN</p>
+                    
+                    <div class="space-y-3">
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">Nama Toko</label>
+                            <input type="text" id="settingStoreName" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">Tagline</label>
+                            <input type="text" id="settingTagline" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">Username Telegram Developer</label>
+                            <input type="text" id="settingDevTelegram" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">Nomor DANA</label>
+                            <input type="text" id="settingDanaNumber" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">Nama DANA</label>
+                            <input type="text" id="settingDanaName" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">URL QRIS</label>
+                            <input type="text" id="settingQrisUrl" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        <div>
+                            <label class="text-slate-700 font-semibold text-sm">URL Foto Profil</label>
+                            <input type="text" id="settingProfilePhoto" class="w-full bg-slate-50 border border-slate-200 rounded p-2 text-slate-900">
+                        </div>
+                        
+                        <!-- Ganti Password -->
+                        <div class="password-section">
+                            <div class="title">
+                                <i class="fas fa-key"></i> Ganti Password Developer
+                            </div>
+                            <p class="text-xs text-red-600 mb-3">
+                                <i class="fas fa-exclamation-triangle mr-1"></i> 
+                                Password saat ini: <strong id="currentPasswordDisplay">admin</strong>
+                            </p>
+                            <div class="space-y-2">
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">Password Lama</label>
+                                    <input type="password" id="oldDevPassword" placeholder="Masukkan password lama" class="border-red-200">
+                                </div>
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">Password Baru</label>
+                                    <input type="password" id="newDevPassword" placeholder="Masukkan password baru (min 4 karakter)" class="border-red-200">
+                                    <div class="password-hint"><i class="fas fa-info-circle"></i> Minimal 4 karakter</div>
+                                </div>
+                                <div>
+                                    <label class="text-xs font-semibold text-slate-600">Konfirmasi Password</label>
+                                    <input type="password" id="confirmDevPassword" placeholder="Ulangi password baru" class="border-red-200">
+                                </div>
+                                <button id="changePasswordBtn" class="btn-change-password">
+                                    <i class="fas fa-save mr-2"></i> Ganti Password
+                                </button>
+                            </div>
+                        </div>
+                        
+                        <button id="saveSettingsBtn" class="btn-save-individual mt-2">💾 Simpan Pengaturan</button>
+                    </div>
+                </div>
+            </div>
+
+            <div class="bg-blue-50 border border-blue-200 p-3 rounded-lg mt-4">
+                <p class="text-blue-700 text-xs">💡 <b>Alur Order:</b> Pelanggan pilih produk → isi username → upload bukti → chat developer dengan pesan otomatis.</p>
+            </div>
+
             <div class="flex gap-2 mt-6">
                 <button id="closeDev2" class="w-full bg-slate-100 hover:bg-slate-200 py-3 rounded-xl text-sm font-semibold text-slate-700">Tutup</button>
             </div>
@@ -743,7 +844,7 @@
 
     <script>
         // ============================================================
-        // KONFIGURASI (semua di sini)
+        // KONFIGURASI
         // ============================================================
         const CONFIG = {
             storeName: 'REXX MARKET HOSTING',
@@ -762,31 +863,57 @@
                 '⚡ Performa Tinggi 99.9% Uptime',
                 '🛡️ Free DDOS Protection',
                 '💬 Support 24/7'
-            ],
-            products: [
-                { 
-                    id: 'prod-1', 
-                    name: 'Paket 2', 
-                    price: 'Rp 5.000', 
-                    ram: '7', 
-                    disk: '45', 
-                    cpu: '450',
-                    desc: 'Cocok untuk bot aktif dengan fitur sedang'
-                },
-                { 
-                    id: 'prod-2', 
-                    name: 'Paket 3', 
-                    price: 'Rp 7.000', 
-                    ram: '10', 
-                    disk: '60', 
-                    cpu: '600',
-                    desc: 'Cocok untuk bot WhatsApp & Telegram'
-                }
             ]
         };
 
         let config = {};
+        let products = [];
         let lastOrderData = null;
+
+        // ============================================================
+        // LOAD DATA DARI developer-products.js
+        // ============================================================
+        function loadProductsData() {
+            try {
+                // Coba load dari file developer-products.js
+                if (typeof DEFAULT_PRODUCTS !== 'undefined') {
+                    // Cek apakah ada data di localStorage
+                    const saved = localStorage.getItem('rexx_products');
+                    if (saved) {
+                        const parsed = JSON.parse(saved);
+                        if (Array.isArray(parsed) && parsed.length > 0) {
+                            products = parsed;
+                            console.log('📦 Products loaded from localStorage');
+                            return;
+                        }
+                    }
+                    // Gunakan DEFAULT_PRODUCTS dari file
+                    products = JSON.parse(JSON.stringify(DEFAULT_PRODUCTS));
+                    console.log('📦 Products loaded from DEFAULT_PRODUCTS');
+                } else {
+                    console.warn('⚠️ DEFAULT_PRODUCTS not found, using fallback');
+                    products = [
+                        { id: 'prod-1', name: 'Paket 2', price: 'Rp 5.000', ram: '7', disk: '45', cpu: '450', desc: 'Cocok untuk bot aktif dengan fitur sedang', category: 'Starter' },
+                        { id: 'prod-2', name: 'Paket 3', price: 'Rp 7.000', ram: '10', disk: '60', cpu: '600', desc: 'Cocok untuk bot WhatsApp & Telegram', category: 'Business' }
+                    ];
+                }
+            } catch (e) {
+                console.error('Error loading products:', e);
+                products = [
+                    { id: 'prod-1', name: 'Paket 2', price: 'Rp 5.000', ram: '7', disk: '45', cpu: '450', desc: 'Cocok untuk bot aktif dengan fitur sedang', category: 'Starter' },
+                    { id: 'prod-2', name: 'Paket 3', price: 'Rp 7.000', ram: '10', disk: '60', cpu: '600', desc: 'Cocok untuk bot WhatsApp & Telegram', category: 'Business' }
+                ];
+            }
+        }
+
+        function saveProductsData() {
+            try {
+                localStorage.setItem('rexx_products', JSON.stringify(products));
+                console.log('💾 Products saved to localStorage');
+            } catch (e) {
+                console.error('Error saving products:', e);
+            }
+        }
 
         // ============================================================
         // TOAST
@@ -846,10 +973,11 @@
         }
 
         // ============================================================
-        // SAVE SETTINGS (hanya untuk yang ada di modal)
+        // SAVE SETTINGS
         // ============================================================
         function saveProductSettings() {
             saveConfig();
+            saveProductsData();
             renderProducts();
             renderDevProductList();
             showToast('✅ Produk tersimpan!', 'success');
@@ -878,11 +1006,13 @@
         // GENERATE PRODUCT CARD
         // ============================================================
         function generateProductCard(p) {
+            const categoryClass = p.category ? `category-${p.category.toLowerCase()}` : 'category-umum';
             return `
                 <div class="flex justify-between items-start">
                     <div>
                         <div class="badge-panel">PANEL</div>
                         <div class="text-lg font-bold text-slate-900 mt-1">${p.name}</div>
+                        ${p.category ? `<span class="product-category-badge ${categoryClass}">${p.category}</span>` : ''}
                     </div>
                     <div class="badge-ready">READY</div>
                 </div>
@@ -906,11 +1036,13 @@
             const grid = document.getElementById('productGrid');
             if (!grid) return;
             grid.innerHTML = '';
-            if (!config.products || config.products.length === 0) {
+            
+            if (!products || products.length === 0) {
                 grid.innerHTML = '<p class="col-span-full text-center text-slate-500">Belum ada produk.</p>';
                 return;
             }
-            config.products.forEach(p => {
+            
+            products.forEach(p => {
                 const card = document.createElement('div');
                 card.className = 'product-card';
                 card.innerHTML = `
@@ -921,6 +1053,7 @@
                 `;
                 grid.appendChild(card);
             });
+            
             document.querySelectorAll('.checkout-btn').forEach(b => {
                 b.addEventListener('click', function() { 
                     const id = this.dataset.id;
@@ -934,49 +1067,37 @@
         // ============================================================
         function renderDevProductList() {
             const list = document.getElementById('devProductList');
+            const count = document.getElementById('productCount');
             if (!list) return;
+            
+            if (count) count.textContent = products.length;
+            
             list.innerHTML = '';
-            if (!config.products || config.products.length === 0) {
+            if (!products || products.length === 0) {
                 list.innerHTML = '<p class="text-slate-500 text-xs">Belum ada produk.</p>';
                 return;
             }
-            config.products.forEach(p => {
+            
+            products.forEach(p => {
                 const div = document.createElement('div');
                 div.className = 'flex justify-between items-center bg-slate-50 border border-slate-200 p-2 rounded-lg text-xs';
                 div.innerHTML = `
                     <div>
                         <p class="font-bold text-slate-900">${p.name}</p>
                         <p class="text-slate-500">${p.price} | RAM: ${p.ram}GB | DISK: ${p.disk}GB | CPU: ${p.cpu}%</p>
+                        ${p.category ? `<span class="text-[9px] text-blue-500">${p.category}</span>` : ''}
                     </div>
                     <button class="delete-product-btn bg-red-50 text-red-500 hover:bg-red-500 hover:text-white px-2 py-1 rounded text-[10px] transition" data-id="${p.id}">Hapus</button>
                 `;
                 list.appendChild(div);
             });
+            
             document.querySelectorAll('.delete-product-btn').forEach(b => {
                 b.addEventListener('click', function() {
                     const id = this.dataset.id;
                     if (id) deleteProduct(id);
                 });
             });
-        }
-
-        // ============================================================
-        // UPDATE PREVIEW
-        // ============================================================
-        function updatePreview() {
-            const name = document.getElementById('new-prod-name')?.value || 'Nama Produk';
-            const price = document.getElementById('new-prod-price')?.value || 'Rp 0';
-            const ram = document.getElementById('new-prod-ram')?.value || '0';
-            const disk = document.getElementById('new-prod-disk')?.value || '0';
-            const cpu = document.getElementById('new-prod-cpu')?.value || '0';
-            const desc = document.getElementById('new-prod-desc')?.value || '';
-
-            document.getElementById('previewName').textContent = name;
-            document.getElementById('previewPrice').textContent = price;
-            document.getElementById('previewRam').textContent = ram + ' GB';
-            document.getElementById('previewDisk').textContent = disk + ' GB';
-            document.getElementById('previewCpu').textContent = cpu + '%';
-            document.getElementById('previewDesc').textContent = desc || 'Deskripsi produk';
         }
 
         // ============================================================
@@ -1038,7 +1159,8 @@
             btn.disabled = true;
 
             const prodId = document.getElementById('selectedProductId').value;
-            const product = config.products.find(p => p.id === prodId);
+            const product = products.find(p => p.id === prodId);
+            
             if (!product) {
                 alert('Produk tidak ditemukan!');
                 btn.disabled = false;
@@ -1123,478 +1245,9 @@
         }
 
         function openDevModal() {
-            renderDevProductList();
-            document.getElementById('devModal').classList.remove('hidden');
-            document.getElementById('devModal').classList.add('flex');
-        }
-
-        function closeDevModal() {
-            document.getElementById('devModal').classList.add('hidden');
-            document.getElementById('devModal').classList.remove('flex');
-        }
-
-        function addNewProduct() {
-            const name = document.getElementById('new-prod-name')?.value;
-            const price = document.getElementById('new-prod-price')?.value;
-            const ram = document.getElementById('new-prod-ram')?.value || '0';
-            const disk = document.getElementById('new-prod-disk')?.value || '0';
-            const cpu = document.getElementById('new-prod-cpu')?.value || '0';
-            const desc = document.getElementById('new-prod-desc')?.value || '';
-
-            if (!name || !price) { alert('Isi nama dan harga!'); return; }
-            
-            config.products.push({ 
-                id: 'prod-' + Date.now(), 
-                name, 
-                price, 
-                ram, 
-                disk, 
-                cpu,
-                desc 
-            });
-            saveConfig();
-            renderDevProductList();
-            renderProducts();
-            
-            document.getElementById('new-prod-name').value = '';
-            document.getElementById('new-prod-price').value = '';
-            document.getElementById('new-prod-ram').value = '';
-            document.getElementById('new-prod-disk').value = '';
-            document.getElementById('new-prod-cpu').value = '';
-            document.getElementById('new-prod-desc').value = '';
-            showToast('✅ Produk ditambahkan!', 'success');
-        }
-
-        function deleteProduct(id) {
-            if (!confirm('Yakin hapus produk ini?')) return;
-            config.products = config.products.filter(p => p.id !== id);
-            saveConfig();
-            renderDevProductList();
-            renderProducts();
-            showToast('🗑️ Produk dihapus!', 'warning');
-        }
-
-        // ============================================================
-        // SETUP EVENT LISTENERS
-        // ============================================================
-        function setupEventListeners() {
-            document.getElementById('btnDevAccess')?.addEventListener('click', promptDevAccess);
-            document.getElementById('footerDevAccess')?.addEventListener('click', e => { e.preventDefault(); promptDevAccess(); });
-
-            document.getElementById('closeDev')?.addEventListener('click', closeDevModal);
-            document.getElementById('closeDev2')?.addEventListener('click', closeDevModal);
-
-            document.getElementById('saveProductsBtn')?.addEventListener('click', saveProductSettings);
-
-            document.getElementById('addProductBtn')?.addEventListener('click', addNewProduct);
-
-            document.getElementById('closeCheckout')?.addEventListener('click', closeCheckoutModal);
-            document.getElementById('paymentMethod')?.addEventListener('change', togglePaymentDetails);
-            document.getElementById('orderForm')?.addEventListener('submit', submitOrder);
-
-            document.getElementById('proofFile')?.addEventListener('change', function(e) {
-                const file = e.target.files[0];
-                document.getElementById('fileNameDisplay').textContent = file ? '📎 ' + file.name : '';
-            });
-
-            document.getElementById('statusModal')?.addEventListener('click', function(e) {
-                if (e.target === this) closeStatusModal();
-            });
-        }
-
-        // ============================================================
-        // INIT
-        // ============================================================
-        function initApp() {
-            loadConfig();
-            renderProducts();
-            renderMarquee();
-            setupEventListeners();
-            updateStoreDisplay();
-            console.log('🎨 REXX MARKET HOSTING - Updated');
-            console.log('✅ Semua config di file config (object CONFIG)');
-            console.log('✅ Upload foto profil via link URL');
-            console.log('✅ Produk 3 kolom seperti awal');
-            console.log('✅ Developer Panel hanya kelola produk');
-            console.log('✅ Aplikasi berputar melingkar');
-            console.log('✅ Panduan ringkas');
-            console.log('✅ Warna aplikasi sesuai aslinya');
-        }
-
-        document.addEventListener('DOMContentLoaded', initApp);
-    </script>
-</body>
-</html>', '#60a5fa', '#93c5fd'];
-            const gradient = `linear-gradient(135deg, ${colors.join(', ')})`;
-            
-            if (profileEl) {
-                if (config?.profilePhoto) {
-                    profileEl.innerHTML = `<img src="${config.profilePhoto}" alt="Profile" onerror="this.style.display='none';this.parentElement.textContent='${config?.storeInitial || 'R'}';">`;
-                } else {
-                    profileEl.style.background = gradient;
-                    profileEl.textContent = config?.storeInitial || 'R';
-                }
-            }
-        }
-
-        // ============================================================
-        // RENDER MARQUEE
-        // ============================================================
-        function renderMarquee() {
-            const track = document.getElementById('marqueeTrack');
-            if (!track) return;
-            
-            const items = config?.marqueeItems || [
-                '🚀 Deploy Cepat & Stabil',
-                '💳 Bayar Pakai QRIS/DANA',
-                '⚡ Performa Tinggi 99.9% Uptime',
-                '🛡️ Free DDOS Protection',
-                '💬 Support 24/7'
-            ];
-            
-            const allItems = [...items, ...items];
-            
-            track.innerHTML = allItems.map(item => `
-                <div class="marquee-item">
-                    <i class="fas fa-circle" style="font-size: 6px;"></i>
-                    <span>${item}</span>
-                    <i class="fas fa-circle" style="font-size: 6px; opacity: 0.3;"></i>
-                </div>
-            `).join('');
-        }
-
-        // ============================================================
-        // RENDER PRODUCTS (15 Produk)
-        // ============================================================
-        function renderProducts() {
-            const grid = document.getElementById('productGrid');
-            if (!grid) return;
-            grid.innerHTML = '';
-            
-            const productList = products.length > 0 ? products : DEFAULT_PRODUCTS;
-            
-            if (!productList || productList.length === 0) {
-                grid.innerHTML = '<p class="col-span-full text-center text-slate-500">Belum ada produk.</p>';
-                return;
-            }
-            
-            productList.forEach(p => {
-                const categoryClass = p.category ? `category-${p.category.toLowerCase()}` : 'category-umum';
-                
-                const card = document.createElement('div');
-                card.className = 'product-card';
-                card.innerHTML = `
-                    <div class="flex justify-between items-start">
-                        <div>
-                            <div class="badge-panel">PANEL</div>
-                            <div class="text-lg font-bold text-slate-900 mt-1">${p.name}</div>
-                            ${p.category ? `<span class="product-category-badge ${categoryClass}">${p.category}</span>` : ''}
-                        </div>
-                        <div class="badge-ready">READY</div>
-                    </div>
-                    <div class="mt-3 space-y-1.5">
-                        <div class="spec-item"><i class="fas fa-microchip"></i><span class="label">RAM</span><span class="value">${p.ram || '0'} GB</span></div>
-                        <div class="spec-item"><i class="fas fa-hdd"></i><span class="label">DISK</span><span class="value">${p.disk || '0'} GB</span></div>
-                        <div class="spec-item"><i class="fas fa-server"></i><span class="label">CPU</span><span class="value">${p.cpu || '0'}%</span></div>
-                    </div>
-                    ${p.desc ? `<div class="text-xs text-slate-500 mt-2 line-clamp-2">${p.desc}</div>` : ''}
-                    <div class="mt-3 flex justify-between items-center pt-2 border-t border-slate-100">
-                        <span class="price-tag">${p.price || 'Rp 0'}</span>
-                        <span class="text-[9px] text-emerald-500 font-medium">● Ready</span>
-                    </div>
-                    <button class="checkout-btn mt-3" data-id="${p.id}">
-                        <i class="fas fa-shopping-cart"></i> Beli Sekarang
-                    </button>
-                `;
-                grid.appendChild(card);
-            });
-            
-            document.querySelectorAll('.checkout-btn').forEach(b => {
-                b.addEventListener('click', function() { 
-                    const id = this.dataset.id;
-                    if (id) checkout(id);
-                });
-            });
-        }
-
-        // ============================================================
-        // RENDER DEV PRODUCT LIST
-        // ============================================================
-        function renderDevProductList() {
-            const list = document.getElementById('devProductList');
-            const count = document.getElementById('productCount');
-            if (!list) return;
-            
-            const productList = products.length > 0 ? products : DEFAULT_PRODUCTS;
-            
-            if (count) count.textContent = productList.length;
-            
-            list.innerHTML = '';
-            if (!productList || productList.length === 0) {
-                list.innerHTML = '<p class="text-slate-500 text-xs">Belum ada produk.</p>';
-                return;
-            }
-            
-            productList.forEach(p => {
-                const div = document.createElement('div');
-                div.className = 'flex justify-between items-center bg-slate-50 border border-slate-200 p-2 rounded-lg text-xs';
-                div.innerHTML = `
-                    <div>
-                        <p class="font-bold text-slate-900">${p.name}</p>
-                        <p class="text-slate-500">${p.price} | RAM: ${p.ram}GB | DISK: ${p.disk}GB | CPU: ${p.cpu}%</p>
-                        ${p.category ? `<span class="text-[9px] text-blue-500">${p.category}</span>` : ''}
-                    </div>
-                    <button class="delete-product-btn bg-red-50 text-red-500 hover:bg-red-500 hover:text-white px-2 py-1 rounded text-[10px] transition" data-id="${p.id}">Hapus</button>
-                `;
-                list.appendChild(div);
-            });
-            
-            document.querySelectorAll('.delete-product-btn').forEach(b => {
-                b.addEventListener('click', function() {
-                    const id = this.dataset.id;
-                    if (id) deleteProduct(id);
-                });
-            });
-        }
-
-        // ============================================================
-        // RENDER USER DATABASE
-        // ============================================================
-        function renderUserDatabase() {
-            const container = document.getElementById('userListContainer');
-            const totalEl = document.getElementById('totalUsers');
-            const newEl = document.getElementById('newUsers');
-            const activeEl = document.getElementById('activeUsers');
-            
-            if (!container) return;
-            
-            const userList = users.length > 0 ? users : DEMO_USERS;
-            
-            const total = userList.length;
-            const weekAgo = new Date();
-            weekAgo.setDate(weekAgo.getDate() - 7);
-            const newUsers = userList.filter(u => new Date(u.registeredAt) > weekAgo).length;
-            const activeUsers = userList.filter(u => u.isActive !== false).length;
-            
-            if (totalEl) totalEl.textContent = total;
-            if (newEl) newEl.textContent = newUsers;
-            if (activeEl) activeEl.textContent = activeUsers;
-            
-            if (userList.length === 0) {
-                container.innerHTML = `<p class="text-slate-400 text-xs text-center py-4">Belum ada pelanggan terdaftar</p>`;
-                return;
-            }
-            
-            const sorted = [...userList].sort((a, b) => new Date(b.registeredAt) - new Date(a.registeredAt));
-            
-            container.innerHTML = sorted.map(u => `
-                <div class="user-list-item">
-                    <div class="user-info">
-                        <span class="name"><i class="fas fa-user-circle text-blue-500 mr-1"></i>${u.fullname || u.username}</span>
-                        <span class="detail">@${u.username} • Bergabung: ${new Date(u.registeredAt).toLocaleDateString('id-ID')}</span>
-                    </div>
-                    <div class="flex items-center gap-2">
-                        <span class="user-badge">${u.isActive !== false ? 'Aktif' : 'Nonaktif'}</span>
-                        <button class="toggle-user-btn text-xs text-slate-400 hover:text-blue-600 transition" data-username="${u.username}">
-                            <i class="fas ${u.isActive !== false ? 'fa-toggle-on text-blue-500' : 'fa-toggle-off text-slate-300'}"></i>
-                        </button>
-                        <button class="delete-user-btn text-xs text-red-400 hover:text-red-600 transition" data-username="${u.username}">
-                            <i class="fas fa-trash"></i>
-                        </button>
-                    </div>
-                </div>
-            `).join('');
-            
-            document.querySelectorAll('.toggle-user-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const username = this.dataset.username;
-                    toggleUserStatus(username);
-                });
-            });
-            
-            document.querySelectorAll('.delete-user-btn').forEach(btn => {
-                btn.addEventListener('click', function() {
-                    const username = this.dataset.username;
-                    if (confirm(`Yakin hapus user "${username}"?`)) {
-                        deleteUser(username);
-                    }
-                });
-            });
-        }
-
-        function toggleUserStatus(username) {
-            const result = toggleUserStatusFn(username);
-            if (result.success) {
-                users = loadUsers();
-                renderUserDatabase();
-                showToast(result.message, 'info');
-            }
-        }
-
-        function deleteUser(username) {
-            const result = deleteUserFn(username);
-            if (result.success) {
-                users = loadUsers();
-                renderUserDatabase();
-                showToast(result.message, 'warning');
-            }
-        }
-
-        // ============================================================
-        // CHECKOUT
-        // ============================================================
-        function checkout(productId) {
-            document.getElementById('selectedProductId').value = productId;
-            document.getElementById('displayQrisImg').src = config?.qrisUrl || 'https://via.placeholder.com/200x200?text=Scan+QRIS';
-            document.getElementById('displayDanaNumber').textContent = config?.danaNumber || '082116896006';
-            document.getElementById('displayDanaName').textContent = "a.n " + (config?.danaName || 'REXX MARKET');
-            document.getElementById('checkoutModal').classList.remove('hidden');
-            document.getElementById('checkoutModal').classList.add('flex');
-        }
-
-        function closeCheckoutModal() {
-            document.getElementById('checkoutModal').classList.add('hidden');
-            document.getElementById('checkoutModal').classList.remove('flex');
-        }
-
-        function togglePaymentDetails() {
-            const method = document.getElementById('paymentMethod').value;
-            document.getElementById('qrisDetail').classList.toggle('hidden', method !== 'QRIS');
-            document.getElementById('danaDetail').classList.toggle('hidden', method !== 'DANA');
-        }
-
-        // ============================================================
-        // STATUS MODAL
-        // ============================================================
-        function openStatusModal(chatUrl) {
-            const modal = document.getElementById('statusModal');
-            const chatBtn = document.getElementById('statusToChat');
-            if (chatBtn) {
-                chatBtn.onclick = function() {
-                    window.open(chatUrl, '_blank');
-                };
-            }
-            if (modal) {
-                modal.classList.remove('hidden');
-                modal.classList.add('flex');
-            }
-        }
-
-        function closeStatusModal() {
-            const modal = document.getElementById('statusModal');
-            if (modal) {
-                modal.classList.add('hidden');
-                modal.classList.remove('flex');
-            }
-        }
-
-        // ============================================================
-        // SUBMIT ORDER
-        // ============================================================
-        function submitOrder(e) {
-            e.preventDefault();
-
-            const btn = document.getElementById('btnSubmit');
-            btn.textContent = 'Mengirim...';
-            btn.disabled = true;
-
-            const prodId = document.getElementById('selectedProductId').value;
-            const product = products.find(p => p.id === prodId) || DEFAULT_PRODUCTS.find(p => p.id === prodId);
-            
-            if (!product) {
-                alert('Produk tidak ditemukan!');
-                btn.disabled = false;
-                btn.textContent = 'Kirim ke Developer 💬';
-                return;
-            }
-
-            const username = document.getElementById('buyerUsername').value.trim();
-            const method = document.getElementById('paymentMethod').value;
-            const fileInput = document.getElementById('proofFile');
-            const file = fileInput?.files[0];
-
-            if (!username) {
-                alert('Masukkan username panel!');
-                btn.disabled = false;
-                btn.textContent = 'Kirim ke Developer 💬';
-                document.getElementById('buyerUsername').focus();
-                return;
-            }
-
-            if (!file) {
-                alert('Upload bukti transfer!');
-                btn.disabled = false;
-                btn.textContent = 'Kirim ke Developer 💬';
-                return;
-            }
-
-            const reader = new FileReader();
-            reader.onload = function(e) {
-                const proofBase64 = e.target.result;
-                const devUsername = config?.devTelegram || 'rexnothuman';
-                
-                const message = `🛒 *ORDER PANEL - ${config?.storeName || 'REXX MARKET HOSTING'}*\n\n` +
-                                `📦 *Produk:* ${product.name}\n` +
-                                `💰 *Harga:* ${product.price}\n` +
-                                `📊 *Spesifikasi:* RAM ${product.ram}GB | DISK ${product.disk}GB | CPU ${product.cpu}%\n` +
-                                `👤 *Username:* ${username}\n` +
-                                `💳 *Metode:* ${method}\n\n` +
-                                `📸 *Bukti Transfer:* (terlampir)\n\n` +
-                                `---\n` +
-                                `_Silakan cek bukti transfer di atas. Tunggu konfirmasi dari developer._`;
-
-                const encodedMessage = encodeURIComponent(message);
-                const chatUrl = `https://t.me/${devUsername}?text=${encodedMessage}`;
-
-                lastOrderData = {
-                    product: product.name,
-                    price: product.price,
-                    ram: product.ram,
-                    disk: product.disk,
-                    cpu: product.cpu,
-                    username: username,
-                    method: method,
-                    date: new Date().toLocaleString(),
-                    proof: proofBase64
-                };
-
-                closeCheckoutModal();
-                document.getElementById('orderForm').reset();
-                document.getElementById('fileNameDisplay').textContent = '';
-                openStatusModal(chatUrl);
-                showToast('✅ Buka chat Telegram untuk kirim pesan!', 'success');
-
-                btn.textContent = 'Kirim ke Developer 💬';
-                btn.disabled = false;
-            };
-
-            reader.readAsDataURL(file);
-        }
-
-        // ============================================================
-        // DEVELOPER PANEL
-        // ============================================================
-        function promptDevAccess() {
-            const pwd = prompt('Masukkan Password Developer (default: admin):');
-            if (pwd === null) return;
-            const devPassword = config?.devPassword || 'admin';
-            if (pwd === devPassword) {
-                openDevModal();
-            } else {
-                alert('Password salah!');
-            }
-        }
-
-        function openDevModal() {
-            // Reload data terbaru
-            if (typeof loadProducts === 'function') products = loadProducts();
-            if (typeof loadUsers === 'function') users = loadUsers();
-            
-            renderDevProductList();
-            renderUserDatabase();
             loadSettingsToForm();
             updatePasswordDisplay();
-            
+            renderDevProductList();
             document.getElementById('devModal').classList.remove('hidden');
             document.getElementById('devModal').classList.add('flex');
         }
@@ -1629,12 +1282,8 @@
                 profilePhoto: document.getElementById('settingProfilePhoto').value.trim()
             };
             
-            // Update config
             config = { ...config, ...settings };
-            
-            if (typeof saveDevConfig === 'function') {
-                saveDevConfig(config);
-            }
+            saveConfig();
             
             updateStoreDisplay();
             renderMarquee();
@@ -1681,11 +1330,7 @@
             
             setTimeout(() => {
                 config.devPassword = newPassword;
-                
-                if (typeof saveDevConfig === 'function') {
-                    saveDevConfig(config);
-                }
-                
+                saveConfig();
                 updatePasswordDisplay();
                 
                 document.getElementById('oldDevPassword').value = '';
@@ -1737,11 +1382,7 @@
             };
             
             products.push(newProduct);
-            
-            if (typeof saveProducts === 'function') {
-                saveProducts(products);
-            }
-            
+            saveProductsData();
             renderDevProductList();
             renderProducts();
             
@@ -1759,52 +1400,10 @@
             if (!confirm('Yakin hapus produk ini?')) return;
             
             products = products.filter(p => p.id !== id);
-            
-            if (typeof saveProducts === 'function') {
-                saveProducts(products);
-            }
-            
+            saveProductsData();
             renderDevProductList();
             renderProducts();
             showToast('🗑️ Produk dihapus!', 'warning');
-        }
-
-        function saveProductSettings() {
-            if (typeof saveProducts === 'function') {
-                saveProducts(products);
-            }
-            renderProducts();
-            renderDevProductList();
-            showToast('✅ Produk tersimpan!', 'success');
-        }
-
-        // ============================================================
-        // WRAPPER FUNCTIONS untuk user management
-        // ============================================================
-        function toggleUserStatusFn(username) {
-            const user = users.find(u => u.username === username);
-            if (!user) return { success: false, message: 'User tidak ditemukan!' };
-            
-            user.isActive = !user.isActive;
-            
-            if (typeof saveUsers === 'function') {
-                saveUsers(users);
-            }
-            
-            return { 
-                success: true, 
-                message: `User ${username} ${user.isActive ? 'diaktifkan' : 'dinonaktifkan'}`
-            };
-        }
-
-        function deleteUserFn(username) {
-            users = users.filter(u => u.username !== username);
-            
-            if (typeof saveUsers === 'function') {
-                saveUsers(users);
-            }
-            
-            return { success: true, message: `User ${username} berhasil dihapus!` };
         }
 
         // ============================================================
@@ -1812,21 +1411,22 @@
         // ============================================================
         function setupTabs() {
             const tabs = document.querySelectorAll('.dev-tab button');
-            const panelIds = ['tab-products', 'tab-users', 'tab-settings', 'tab-guide'];
-            
+            const panels = {
+                'tab-products': document.getElementById('tab-products'),
+                'tab-settings': document.getElementById('tab-settings')
+            };
+
             tabs.forEach(tab => {
                 tab.addEventListener('click', function() {
                     tabs.forEach(t => t.classList.remove('active'));
                     this.classList.add('active');
 
-                    panelIds.forEach(id => {
-                        const panel = document.getElementById(id);
-                        if (panel) panel.classList.remove('active');
-                    });
+                    Object.values(panels).forEach(p => p.classList.remove('active'));
 
                     const tabId = this.dataset.tab;
-                    const panel = document.getElementById(tabId);
-                    if (panel) panel.classList.add('active');
+                    if (panels[tabId]) {
+                        panels[tabId].classList.add('active');
+                    }
                 });
             });
         }
@@ -1877,20 +1477,17 @@
         // INIT
         // ============================================================
         function initApp() {
-            // Load semua data dari file terpisah
-            loadAllData();
-            
-            // Render UI
+            loadConfig();
+            loadProductsData();
             renderProducts();
             renderMarquee();
             setupEventListeners();
             updateStoreDisplay();
             
-            console.log('🎨 REXX MARKET HOSTING - Complete');
-            console.log(`📦 ${products.length} products loaded`);
-            console.log(`👥 ${users.length} users loaded`);
+            console.log('🎨 REXX MARKET HOSTING - Connected to developer-products.js');
+            console.log(`📦 ${products.length} products loaded from developer-products.js`);
             console.log(`🔑 Password Developer: ${config?.devPassword || 'admin'}`);
-            console.log('✅ Semua opsi developer dipisah ke file terpisah');
+            console.log('✅ Semua data produk terhubung ke developer-products.js');
         }
 
         document.addEventListener('DOMContentLoaded', initApp);
